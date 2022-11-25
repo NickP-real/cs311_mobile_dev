@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Add Prime',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -54,17 +54,17 @@ class _MyHomePageState extends State<MyHomePage> {
   int curPrime = 1;
 
   void addPrime() {
-    setState(() {
-      while (true) {
-        if (curPrime < 3) {
-          curPrime += 1;
-        } else {
-          curPrime += 2;
-        }
-        if (isPrime(curPrime)) {
-          break;
-        }
+    while (true) {
+      if (curPrime < 3) {
+        curPrime += 1;
+      } else {
+        curPrime += 2;
       }
+      if (isPrime(curPrime)) {
+        break;
+      }
+    }
+    setState(() {
       primeList.add(curPrime);
     });
   }
