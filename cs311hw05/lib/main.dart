@@ -11,63 +11,93 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final List<String> items;
 
   const MyApp({super.key, required this.items});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<bool> favorites = List<bool>.generate(150, (_) => false);
+
+  void toggleFavorite(int index) {
+    setState(() {
+      favorites[index] = !favorites[index];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    const title = 'Pokemon List';
+    final favoritesCounts =
+        favorites.where((element) => element).toList().length;
+    final title =
+        'Pokemon List ${favoritesCounts == 0 ? "" : "($favoritesCounts)"}';
+    final pokemons = List.generate(widget.items.length,
+        (i) => Pokemon(src: widget.items[i], isFavorite: favorites[i]));
 
     return MaterialApp(
       title: title,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(title),
-        ),
+        appBar: AppBar(title: Text(title), centerTitle: true),
         body: ListView.builder(
-          itemCount: items.length ~/
+          itemCount: widget.items.length ~/
               3, // 3 items per row so we divide the number of items by 3
           itemBuilder: (context, index) {
             return Row(
               children: [
-                Expanded(
-                    child: Stack(
-                  // Stack is for overlaying Favorite icon on top of image
-                  children: [
-                    Image.network(items[index * 3]),
-                    const Icon(
-                      Icons.favorite_border,
-                      size: 50,
-                    ),
-                  ],
-                )),
-                Expanded(
-                    child: Stack(
-                  children: [
-                    Image.network(items[index * 3 + 1]),
-                    const Icon(
-                      Icons.favorite_border,
-                      size: 50,
-                    ),
-                  ],
-                )),
-                Expanded(
-                    child: Stack(
-                  children: [
-                    Image.network(items[index * 3 + 2]),
-                    const Icon(
-                      Icons.favorite_border,
-                      size: 50,
-                    ),
-                  ],
-                )),
+                for (int i = 0; i < 3; i++)
+                  Expanded(
+                    child: PokemonCard(
+                        pokemon: pokemons[index * 3 + i],
+                        toggleFavorite: () => toggleFavorite(index * 3 + i)),
+                  ),
               ],
             );
           },
         ),
       ),
+    );
+  }
+}
+
+class Pokemon {
+  final String src;
+  final bool isFavorite;
+
+  Pokemon({required this.src, required this.isFavorite});
+}
+
+class PokemonCard extends StatefulWidget {
+  const PokemonCard(
+      {super.key, required this.pokemon, required this.toggleFavorite});
+
+  final Pokemon pokemon;
+  final Function toggleFavorite;
+
+  @override
+  State<PokemonCard> createState() => _PokemonCardState();
+}
+
+class _PokemonCardState extends State<PokemonCard> {
+  @override
+  Widget build(BuildContext context) {
+    final pokemon = widget.pokemon;
+    return Stack(
+      // Stack is for overlaying Favorite icon on top of image
+      children: [
+        Image.network(pokemon.src),
+        IconButton(
+          padding: EdgeInsets.zero,
+          iconSize: 50,
+          icon:
+              Icon(pokemon.isFavorite ? Icons.favorite : Icons.favorite_border),
+          color: pokemon.isFavorite ? Colors.red : Colors.black,
+          onPressed: () => widget.toggleFavorite(),
+        ),
+      ],
     );
   }
 }
