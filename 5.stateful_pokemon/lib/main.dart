@@ -75,7 +75,7 @@ class PokemonCard extends StatefulWidget {
       {super.key, required this.pokemon, required this.toggleFavorite});
 
   final Pokemon pokemon;
-  final Function toggleFavorite;
+  final VoidCallback toggleFavorite;
 
   @override
   State<PokemonCard> createState() => _PokemonCardState();
