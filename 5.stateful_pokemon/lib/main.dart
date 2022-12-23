@@ -50,10 +50,9 @@ class _MyAppState extends State<MyApp> {
               children: [
                 for (int i = 0; i < 3; i++)
                   Expanded(
-                    child: PokemonCard(
-                        pokemon: pokemons[index * 3 + i],
-                        toggleFavorite: () => toggleFavorite(index * 3 + i)),
-                  ),
+                      child: PokemonCard(
+                          pokemon: pokemons[index * 3 + i],
+                          onPressed: () => toggleFavorite(index * 3 + i)))
               ],
             );
           },
@@ -70,33 +69,26 @@ class Pokemon {
   Pokemon({required this.src, required this.isFavorite});
 }
 
-class PokemonCard extends StatefulWidget {
+class PokemonCard extends StatelessWidget {
   const PokemonCard(
-      {super.key, required this.pokemon, required this.toggleFavorite});
+      {super.key, required this.pokemon, required this.onPressed});
 
   final Pokemon pokemon;
-  final VoidCallback toggleFavorite;
+  final VoidCallback onPressed;
 
-  @override
-  State<PokemonCard> createState() => _PokemonCardState();
-}
-
-class _PokemonCardState extends State<PokemonCard> {
   @override
   Widget build(BuildContext context) {
-    final pokemon = widget.pokemon;
     return Stack(
       // Stack is for overlaying Favorite icon on top of image
       children: [
         Image.network(pokemon.src),
         IconButton(
-          padding: EdgeInsets.zero,
-          iconSize: 50,
-          icon:
-              Icon(pokemon.isFavorite ? Icons.favorite : Icons.favorite_border),
-          color: pokemon.isFavorite ? Colors.red : Colors.black,
-          onPressed: () => widget.toggleFavorite(),
-        ),
+            padding: EdgeInsets.zero,
+            iconSize: 50,
+            icon: Icon(
+                pokemon.isFavorite ? Icons.favorite : Icons.favorite_border),
+            color: pokemon.isFavorite ? Colors.red : Colors.black,
+            onPressed: onPressed),
       ],
     );
   }
