@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'pokemon_api.dart';
+
 const Map<String, int> themeColor = {
   "Normal": 0xFFA8A77A,
   "Fire": 0xFFEE8130,
@@ -24,7 +26,9 @@ const Map<String, int> themeColor = {
 class PokemonTheme extends ChangeNotifier {
   Color currentTheme = Color(themeColor["Grass"]!);
 
-  void setTheme(String type) {
+  void setTheme(int index) async {
+    final pokemon = await fetchPokemonInfo(index + 1);
+    final type = pokemon.typesToString().split("/")[0];
     currentTheme = Color(themeColor[type]!);
     notifyListeners();
   }

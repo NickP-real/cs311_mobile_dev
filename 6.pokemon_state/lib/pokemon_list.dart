@@ -16,9 +16,7 @@ class _PokemonListState extends State<PokemonList> {
   int _currSelect = 0;
 
   void _onPokemonClick(int index, PokemonTheme pokemonTheme) async {
-    final pokemon = await fetchPokemonInfo(index + 1);
-    final type = pokemon.typesToString().split("/")[0];
-    pokemonTheme.setTheme(type);
+    pokemonTheme.setTheme(index);
     setState(() {
       _currSelect = index;
     });
