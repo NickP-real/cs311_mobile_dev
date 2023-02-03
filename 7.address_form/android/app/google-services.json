@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "12440773375",
+    "firebase_url": "https://cs311w09-23502-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cs311w09-23502",
+    "storage_bucket": "cs311w09-23502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12440773375:android:3038fd967b8a1238dc62ca",
+        "android_client_info": {
+          "package_name": "com.example.address_form"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12440773375-tju7git3m07mbkpdqp1n3jdut060aeqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBleRvhY3NF3Dt0t5VQB8KZ4sVewjIkmz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12440773375-tju7git3m07mbkpdqp1n3jdut060aeqb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "12440773375-d5h0lo218h44j4s7g7nlck0qnnvdaeb3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.addressForm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
